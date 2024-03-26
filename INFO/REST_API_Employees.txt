@@ -1,0 +1,111 @@
+
+REST API User
+---------------------
+
+Postman для тесту REST API
+https://www.postman.com/
+
+1) Отримання всіх даних
+
+GET
+http://localhost:8080/api/v1/users
+
+
+2) Створення даних
+
+POST
+http://localhost:8080/api/v1/users
+
+Налаштування в Postman: Body, raw, JSON.
+Прописуємо при кожному запиті окремо.
+УВАГА. Для ключів, НЕ "first_name", а "firstName".
+Інакше, може бути помилка first_name є null.
+
+(1)
+{
+	"firstName": "Alice",
+	"lastName": "Green",
+	"email": "alice@mail.com"
+}
+
+(2)
+{
+	"firstName": "John",
+	"lastName": "Star",
+	"email": "j.star@mail.com"
+}
+
+(3)
+{
+	"firstName": "Robert",
+	"lastName": "Man",
+	"email": "rob@mail.com"
+}
+
+(4)
+{
+	"firstName": "Erika",
+	"lastName": "Sunny",
+	"email": "erika@mail.com"
+}
+
+(5)
+{
+	"firstName": "Alice",
+	"lastName": "Sunny",
+	"email": "asunny@mail.com"
+}
+
+
+3) Отримання даних за id
+
+GET
+http://localhost:8080/api/v1/users/2
+
+
+4) REST-запит на оновлення даних за id
+
+PUT
+http://localhost:8080/api/v1/users/4
+
+Налаштування в Postman: Body, raw, JSON.
+
+{
+	"lastName": "Moon",
+	"email": "moon@mail.com"
+}
+
+PUT
+http://localhost:8080/api/v1/users/2
+
+Налаштування в Postman: Body, raw, JSON.
+
+{
+	"email": "johnny@mail.com"
+}
+
+
+5) Отримання даних за firstName
+
+GET
+http://localhost:8080/api/v1/users/first-name/Alice
+http://localhost:8080/api/v1/users/first-name/John
+Відсутнє
+http://localhost:8080/api/v1/users/first-name/Sam
+
+
+6) Отримання даних за lastName
+
+GET
+http://localhost:8080/api/v1/users/last-name/Man
+http://localhost:8080/api/v1/users/last-name/Sunny
+Відсутнє
+http://localhost:8080/api/v1/users/last-name/Wolf
+
+
+
+7) Видалення даних за id
+
+DELETE
+http://localhost:8080/api/v1/users/4
+
