@@ -19,7 +19,7 @@ public class EmployeeController {
     @Autowired
     EmployeeService service;
 
-    @PostMapping("/users")
+    @PostMapping("/employees")
     public ResponseData save(@RequestBody Employee employee) {
         Optional<Employee> optional = service.save(employee);
         return optional.map(value ->
@@ -30,7 +30,7 @@ public class EmployeeController {
                                 false, SMTH_WRONG));
     }
 
-    @GetMapping("/users")
+    @GetMapping("/employees")
     public ResponseData getAll() {
         Optional<List<Employee>> optional = service.getAll();
         return optional.map(users ->
@@ -41,7 +41,7 @@ public class EmployeeController {
                                 false, SMTH_WRONG));
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/employees/{id}")
     public ResponseData getById(@PathVariable Long id) {
         Employee employee = service.getById(id);
         if (employee != null)
@@ -51,7 +51,7 @@ public class EmployeeController {
                 false, SMTH_WRONG);
     }
 
-    @PutMapping("/users/{id}")
+    @PutMapping("/employees/{id}")
     public ResponseData update(@PathVariable Long id,
                                @RequestBody Employee employee) {
         Employee employeeUpdated = service.update(id, employee);
@@ -62,7 +62,7 @@ public class EmployeeController {
                 false, SMTH_WRONG);
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/employees/{id}")
     public ResponseData delete(@PathVariable Long id){
         if (service.delete(id))
             return new ResponseData(HttpStatus.OK.toString(),
@@ -71,7 +71,7 @@ public class EmployeeController {
                 false, SMTH_WRONG);
     }
 
-    @GetMapping("/users/first-name/{firstName}")
+    @GetMapping("/employees/first-name/{firstName}")
     public ResponseData getByFirstName(@PathVariable String firstName) {
         List<Employee> list = service.getByFirstName(firstName);
         if (!list.isEmpty())
@@ -81,9 +81,19 @@ public class EmployeeController {
                 false, "No data.");
     }
 
-    @GetMapping("/users/last-name/{lastName}")
+    @GetMapping("/employees/last-name/{lastName}")
     public ResponseData getByLastName(@PathVariable String lastName) {
         List<Employee> list = service.getByLastName(lastName);
+        if (!list.isEmpty())
+            return new ResponseData(HttpStatus.OK.toString(),
+                    true, list);
+        else return new ResponseData(HttpStatus.NOT_FOUND.toString(),
+                false, "No data.");
+    }
+
+    @GetMapping("/employees/position/{position}")
+    public ResponseData getByPosition(@PathVariable String position) {
+        List<Employee> list = service.getByPosition(position);
         if (!list.isEmpty())
             return new ResponseData(HttpStatus.OK.toString(),
                     true, list);

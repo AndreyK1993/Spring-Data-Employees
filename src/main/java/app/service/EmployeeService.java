@@ -30,7 +30,8 @@ public class EmployeeService {
     public Employee update(Long id, Employee employee) {
         String firstName = employee.getFirstName();
         String lastName = employee.getLastName();
-        String email = employee.getEmail();
+        String position = employee.getPosition();
+        String email = employee.getPhone();
         Optional<Employee> optional = repository.findById(id);
         if (optional.isPresent()) {
             Employee employeeUpdate = optional.get();
@@ -38,8 +39,10 @@ public class EmployeeService {
                 employeeUpdate.setFirstName(firstName);
             if (lastName != null)
                 employeeUpdate.setLastName(lastName);
+            if (position != null)
+                employeeUpdate.setPosition(position);
             if (email != null)
-                employeeUpdate.setEmail(email);
+                employeeUpdate.setPhone(email);
             repository.save(employeeUpdate);
         }
         return repository.findById(id).orElse(null);
@@ -59,6 +62,11 @@ public class EmployeeService {
 
     public List<Employee> getByLastName(String lastName) {
         return repository.findByLastName(lastName)
+                .orElse(Collections.emptyList());
+    }
+
+    public List<Employee> getByPosition(String position) {
+        return repository.findByPosition(position)
                 .orElse(Collections.emptyList());
     }
 }

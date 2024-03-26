@@ -21,7 +21,7 @@ import java.util.Properties;
 // Конфігурація Spring на основі Java.
 // Конфігурація Hibernate на основі Java.
 @Configuration
-@EnableJpaRepositories("org.example.app.repository")
+@EnableJpaRepositories("app.repository")
 // @EnableTransactionManagement включає можливості Spring
 // з управління транзакціями на основі анотацій.
 @EnableTransactionManagement
@@ -37,7 +37,7 @@ public class AppContext {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("org.example.app.entity");
+        factory.setPackagesToScan("app.entity");
         factory.setDataSource(dataSource());
         factory.setJpaProperties(hibernateProperties());
         return factory;
